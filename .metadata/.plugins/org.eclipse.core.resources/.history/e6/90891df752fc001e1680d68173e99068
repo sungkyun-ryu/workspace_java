@@ -1,0 +1,18 @@
+package ch3;
+
+public class Apr17_1 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		int score= 90;
+		String result= "";
+		
+		if (score >= 60) {
+			result= "Accepted";
+		}
+		
+		System.out.println(result);
+	}
+
+}

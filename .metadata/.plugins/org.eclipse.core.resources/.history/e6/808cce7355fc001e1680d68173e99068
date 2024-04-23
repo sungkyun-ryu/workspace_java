@@ -1,0 +1,32 @@
+package ch3;
+
+public class Apr17_1 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		// Insert my grade
+		int score= 58;
+		
+		// Empty grade 
+		String grade= "";
+		
+		// Produce the grade 
+		if (score >=85) {
+			grade= "Distinction";
+		} else if(score >=70) {
+			grade= "Merit";
+		} else if(score >=50) {
+			grade= "Pass";
+		} else {
+			grade= "Fail";
+		}
+		
+		// Print out 
+		System.out.println(grade);
+		
+		
+		
+	}
+
+}

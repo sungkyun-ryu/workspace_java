@@ -1,0 +1,20 @@
+package assignment;
+
+import java.util.Scanner;
+
+public class PrimeNumber2 {
+
+	public void checkpm2() {
+		Scanner sc= new Scanner(System.in);
+		System.out.println("Give me your number, please: ");
+		int n = sc.nextInt();
+		int p = (int)Math.pow(10, n-1);
+		int q = (int)Math.pow(10, n)-1;
+		
+		PrimeNumber1 pn1 = new PrimeNumber1();
+		
+		for(int i=p; i>q; i++) {
+			if(i)
+		}
+	}
+}

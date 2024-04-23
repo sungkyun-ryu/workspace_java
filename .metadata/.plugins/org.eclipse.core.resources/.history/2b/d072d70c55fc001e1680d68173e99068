@@ -1,0 +1,39 @@
+package ch3;
+
+public class Apr17_1 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		// 점수 초기화 for 3 people
+		int score_1= 91;
+		int score_2= 62;
+		int score_3= 58;
+		
+		// 결과 문자열 초기화
+		String result_1= "";
+		String result_2= "";
+		String result_3= "";
+		
+		
+		// 60점 이상이면 합격
+		if (score_1 >= 60) {
+			result_1= "Accepted";
+		}
+		if (score_2 >= 60) {
+			result_2= "Accepted";
+		}
+		if (score_3 >= 60) {
+			result_3 = "Accepted";
+		}
+		
+		// 결과 화면 출력
+		System.out.println(result_1);
+		System.out.println(result_2);
+		System.out.println(result_3);
+		
+		// 삼항 연산자를 이용
+		
+		
+	}
+
+}

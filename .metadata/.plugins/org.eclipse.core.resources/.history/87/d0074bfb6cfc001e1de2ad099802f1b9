@@ -1,0 +1,26 @@
+package ch3;
+
+import java.util.Scanner;
+
+public class Quiz2 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc= new Scanner(System.in);
+		System.out.print("Give me your favourite number. ");
+		int n= sc.nextInt(); 
+		int a= 1; 
+		
+		for(int i=2; i<= n; i++) {
+			a= a+i;
+		} System.out.println("The summation is " + a);
+		
+		int a=1;
+		for(int i=2; i<=n; i++) {
+			if(i%2==1) {
+				a= a+i;
+			} System.out.println("The summation of odd numbers are " + a);
+		}
+	}
+
+}

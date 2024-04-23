@@ -1,0 +1,29 @@
+package ch3;
+
+public class Apr17_4 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		// Switch~Case
+		int a= 3847;
+		int b= 207;
+		char op= '%';
+		
+		switch(op) {
+		case '+':
+			System.out.println(a+b);
+		case '-':
+			System.out.println(a-b);
+		case '%':
+			System.out.println(a%b);
+		case '*':
+			System.out.println(a*b);
+		case '/':
+			System.out.println(a/b);
+		default: 
+			System.out.println(Math.pow(a, b));
+		}
+	}
+
+}

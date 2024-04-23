@@ -1,0 +1,35 @@
+package firstproj;
+
+public class Test2 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		byte a= 0b00010001;
+		byte b= 0b00100010;
+		
+		int c= a&b;
+		System.out.println(c);
+		
+		int d= a|b;
+		System.out.println(d);
+		
+		int e= a^b; 
+		System.out.println(e);
+		
+		int f= 12;
+		int g= (~f)+1;
+		System.out.println(g);
+		
+		int h= a<<1;
+		int i= f>>1;
+		int j= f>>>1; 
+		
+		System.out.println(a);
+		System.out.println(i);
+		System.out.println(j);
+		
+		
+	}
+
+}

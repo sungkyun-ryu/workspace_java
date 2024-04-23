@@ -1,0 +1,23 @@
+package com.ruby.java.ch06;
+
+public class Armor {
+	private String name;
+	private int height;
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String value) {
+		name= value;
+	}
+	
+	public static void main(String[] args) {
+		Armor a= new Armor();
+		a.name= "kim";
+		System.out.println(a.getName());
+		
+			
+		
+	}
+}

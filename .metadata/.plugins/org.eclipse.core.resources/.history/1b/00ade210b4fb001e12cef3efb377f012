@@ -1,0 +1,12 @@
+package firstproj;
+
+public class Test1 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.out.println("Hello, I've finally made it");
+		int depositAmount=10000;
+		System.out.println(depositAmount);;
+	}
+
+}

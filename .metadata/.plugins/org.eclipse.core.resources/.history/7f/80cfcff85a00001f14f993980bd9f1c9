@@ -1,0 +1,17 @@
+package com.ruby.java.ch06;
+
+class Myown{
+	int num=1; 
+	static int num1;
+	
+}
+
+public class OwnTest {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Myown m= new Myown(); 
+		System.out.println(m.num);
+	}
+
+}

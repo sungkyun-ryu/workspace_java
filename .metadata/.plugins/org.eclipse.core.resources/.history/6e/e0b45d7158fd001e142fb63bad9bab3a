@@ -1,0 +1,11 @@
+package apr18;
+
+public class Work_4 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int arr[][]= new int[3][5];
+		System.out.println(arr.length);
+	}
+
+}

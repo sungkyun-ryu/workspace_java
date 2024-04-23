@@ -1,0 +1,37 @@
+package com.ruby.java.ch06;
+
+class Student{
+	private String sname;
+	private int age;
+	
+}
+
+public class Armor {
+	private String name;
+	private int height;
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String value) {
+		name= value;
+	}
+	
+	public static void main(String[] args) {
+		Armor a[] = new Armor[10]; //배열생성자
+		Armor b= new Armor(); //생성자
+		Armor suit1= new Armor();
+		suit1.setName("Mark");
+		System.out.println(suit1.getName());
+		System.out.println(a[9]);
+		System.out.println(b);
+		
+		
+		
+		
+		
+			
+		
+	}
+}

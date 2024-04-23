@@ -1,0 +1,19 @@
+package com.ruby.java.ch06;
+
+class Count{
+	int num;
+	static int num1;
+	Count() {
+		num=1; 
+		num1 =5;
+	}
+}
+
+public class OwnTest {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.out.println(Count.num1);
+	}
+
+}

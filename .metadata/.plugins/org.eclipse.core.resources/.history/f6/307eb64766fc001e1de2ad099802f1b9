@@ -1,0 +1,16 @@
+package ch3;
+
+public class Test30 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int i = 3845052; 
+		if (i%2==0) {
+			System.out.println("2 is the factor of " + i);
+			if (i%3==0) {
+				System.out.println("3 is the factor of " + i);
+			}
+		}
+	}
+
+}

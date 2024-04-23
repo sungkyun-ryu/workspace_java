@@ -1,0 +1,30 @@
+package com.ruby.java.test1;
+
+public class Armor {
+	String name; 
+	int height;
+	int weight; 
+	String color; 
+	boolean isFly;
+	
+	void takeoff() {
+		System.out.println("it is taking off");
+	}
+	void land() {
+		int a= 10; 
+		int b= 100;
+		System.out.println(a+b);
+	}
+	void shootLaser() {
+		int[][] arr= new int[10][10];
+		for(int i=0; i<arr.length; i++) {
+			for(int j=0; j<arr[i].length; j++) {
+				arr[i][j] = i; 	
+				System.out.print(arr[i][j] + "\t");
+			} System.out.println();
+		}
+	}
+	void launchMissile() {}
+	
+}
+

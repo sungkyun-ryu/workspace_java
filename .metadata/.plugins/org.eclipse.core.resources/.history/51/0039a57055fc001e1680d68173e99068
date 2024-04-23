@@ -1,0 +1,29 @@
+package ch3;
+
+public class Apr17_1 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		// Insert my grade
+		int score= 58;
+		
+		// Empty string 
+		String result= "";
+		
+		// greater than or equal is accepted
+		if (score >= 60) {
+			result= "Accepted";
+		} else {
+			result= "Rejected";
+		}
+		
+		// Print out 
+		System.out.println(result);
+		
+		
+		
+		
+	}
+
+}

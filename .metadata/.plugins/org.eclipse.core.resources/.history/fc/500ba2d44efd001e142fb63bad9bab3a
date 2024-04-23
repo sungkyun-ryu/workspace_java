@@ -1,0 +1,11 @@
+package apr18;
+
+public class Work_2 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		char[] score = {'a','b','d','e'};
+		System.out.println(score[3]);
+	}
+
+}

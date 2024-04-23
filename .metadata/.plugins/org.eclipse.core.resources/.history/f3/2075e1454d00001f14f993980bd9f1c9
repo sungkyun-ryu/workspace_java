@@ -1,0 +1,10 @@
+package com.ruby.java.ch06;
+
+class Count {
+	public static int totalCount;
+	int count;
+}
+
+public class Countest{
+	
+}
