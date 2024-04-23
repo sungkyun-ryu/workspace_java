@@ -9,15 +9,21 @@ public class Program {
 		PrimeNumber2 pn2 = new PrimeNumber2(); 
 
 
+//		methods of MatrixCalc
 		
-		mc.getMatrix();   
+//		mc.getMatrix();   
 //		mc.work_row();
-		mc.work_column();
-//		mc.work_row();
+//		mc.work_column();
+
 	 
-//
+//		a method of PrimeNumber1
+//		prime number check
+		
 //		pn1.checkpm();
-//		pn2.checkpm();
+		
+//		a method of PrimeNumber2
+//		getting prime number x digits
+		pn2.checkpm();
 		
 	}
 
