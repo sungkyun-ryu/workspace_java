@@ -7,7 +7,7 @@ public class Program {
 		MatrixCalc mc = new MatrixCalc();
 		PrimeNumber1 pn1 = new PrimeNumber1();
 		PrimeNumber2 pn2 = new PrimeNumber2(); 
-
+		PrimeNumber3 pn3 = new PrimeNumber3(); 
 
 //		methods of MatrixCalc
 		
@@ -21,9 +21,11 @@ public class Program {
 		
 //		pn1.checkpm();
 		
-//		a method of PrimeNumber2
 //		getting prime number x digits
-		pn2.checkpm();
+//		pn2.checkpm();
+		
+//		a method of PrimeNumber3
+		pn3.checkpm();
 		
 	}
 
