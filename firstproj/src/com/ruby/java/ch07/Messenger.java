@@ -10,20 +10,20 @@ public interface Messenger {
 
 	public abstract void setMessage(String msg);
 
-	public default void setLogin(boolean login) {
-		log();
-		if (login) {
-			System.out.println("You are logged in.");
-		} else {
-			System.out.println("Successfully logged out.");
-		}
-	}
-
-	public static void getConnection() {
-		System.out.println("Connecting to network.");
-	}
-
-	private void log() {
-		System.out.println("start job!");
-	}
+//	public default void setLogin(boolean login) {
+//		log();
+//		if (login) {
+//			System.out.println("You are logged in.");
+//		} else {
+//			System.out.println("Successfully logged out.");
+//		}
+//	}
+//
+//	public static void getConnection() {
+//		System.out.println("Connecting to network.");
+//	}
+//
+//	private void log() {
+//		System.out.println("start job!");
+//	}
 }

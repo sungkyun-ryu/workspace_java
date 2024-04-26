@@ -12,13 +12,11 @@ public class GalaxyMessenger implements Messenger, WorkFile{
 
 	@Override
 	public void fileUpload() {
-		// TODO Auto-generated method stub
-		
+	
 	}
 
 	@Override
 	public void fileDownload() {
-		// TODO Auto-generated method stub
-		
+	
 	}
 }
