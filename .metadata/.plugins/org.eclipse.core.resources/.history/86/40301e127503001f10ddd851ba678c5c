@@ -1,0 +1,29 @@
+package com.ruby.java.ch08;
+
+public class HRSTest2 {
+
+	public static void calcTax(Employee e) {
+		if(e instanceof Salesman) {
+			System.out.println("Type: Salesman");
+		} else if(e instanceof Manager) {
+			System.out.println("Type: Manager");
+		} else if(e instanceof Consultant) {
+			System.out.println("Type: Consultant");
+		} else {
+			System.out.println("Type: Employee");
+		}
+	}
+	
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Salesman s = new Salesman(); 
+		Manager m = new Manager(); 
+		Consultant c = new Consultant(); 
+		
+		calcTax(s); 
+		calcTax(m); 
+		calcTax(c); 
+	}
+
+}

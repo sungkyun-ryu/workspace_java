@@ -1,0 +1,26 @@
+package com.ruby.java.ch07;
+
+public class Employee extends Person{
+
+	private String dept;
+	
+	public Employee() {} ; 
+	
+	public Employee(String name, int age, String dept) {
+		this.getName() = name; 
+		this.getAge() = age; 
+		this.dept = dept; 
+	}
+		
+	public String getDept() {
+		return dept;
+	}
+
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+	
+	public String toString() {
+		return getName() + ", " + getAge() + ", " + dept; 
+	}
+}

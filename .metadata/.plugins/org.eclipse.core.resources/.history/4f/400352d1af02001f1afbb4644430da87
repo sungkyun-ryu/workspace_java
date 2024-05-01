@@ -1,0 +1,18 @@
+package com.ruby.java.ch07;
+
+public class IphoneMessenger implements Messenger {
+	public String getMessenger() {
+		return "IPhone"; 
+	}
+	
+	public void setMessenger(String msg) {
+		System.out.println("Message= " + msg);
+	}
+	
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

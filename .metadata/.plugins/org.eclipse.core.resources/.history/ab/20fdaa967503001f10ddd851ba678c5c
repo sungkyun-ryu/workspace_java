@@ -1,0 +1,35 @@
+package com.ruby.java.ch08;
+
+public class HRSTest2 {
+
+	public static void calcTax(Employee e) {
+		if(e instanceof Salesman) {
+			Salesman s = (Salesman) e;
+			s.annual_sales = 6500000; 
+			System.out.println("Salesman's annual sales is: " + s.annual_sales + ".");
+		} else if(e instanceof Manager) {
+			Manager m = (Manager) e; 
+			m.num_team = 5;
+			System.out.println("Manager's number of teams is " + m.num_team + ".");
+		} else if(e instanceof Consultant) {
+			Consultant c = (Consultant) e;
+			c.num_project = 35;
+			System.out.println("Consultant's number of projects is " + c.num_project + ".");
+		} else {
+			System.out.println("Type: Employee");
+		}
+	}
+	
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Salesman s = new Salesman(); 
+		Manager m = new Manager(); 
+		Consultant c = new Consultant(); 
+		
+		calcTax(s); 
+		calcTax(m); 
+		calcTax(c); 
+	}
+
+}

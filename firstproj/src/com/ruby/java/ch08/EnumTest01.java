@@ -1,7 +1,7 @@
 package com.ruby.java.ch08;
 
 enum Status {
-	... 
+	READY, SEND, COMPLETE, CLOSE 
 }
 
 public class EnumTest01 {

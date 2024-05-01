@@ -1,0 +1,38 @@
+package assignment;
+/*
+ * 7장 실습 코드로 구현한다 
+ */
+
+interface Shape {
+	public double perimeter();
+	public float area();
+}
+
+class Triangle implements Shape {
+	private int x1,y1,x2,y2,x3,y3;
+	@Override
+	public double perimeter() { //구글링으로 계산식 찾아서 구현
+		double sum = 0;
+		return sum;}
+	@Override
+	public float area() {
+		System.out.println();
+	}
+}
+class Rectangle implements Shape {
+	int x1,y1,x2,y2;
+}
+class Square extends Rectangle {
+	int x1, y1;
+	int side;
+}
+public class ch07_test_인터페이스작성연습 {
+	Shape t = new Triangle(1,2,3,4,5,6);
+	shape r = new Rectangle(1,2,3,4);
+	shape s = new Square(1,2,3);
+	System.out.println("삼각형 둘레 길이 = " + t.perimeter());
+	System.out.println("삼각형 면적 = " + t.area());
+	System.out.println("사각형 둘레 길이 = " + r.perimeter());
+	System.out.println("사각형 면적 = " + r.area());
+}
+
