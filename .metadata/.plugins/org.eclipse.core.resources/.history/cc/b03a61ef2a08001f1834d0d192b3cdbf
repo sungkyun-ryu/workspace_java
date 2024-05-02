@@ -1,0 +1,93 @@
+package assignment;
+
+	abstract class Geometry {
+		public abstract double getArea(); 
+		public abstract double getLength(); 
+		
+	class Point extends Geometry {
+
+		@Override
+		public double getArea() {
+			// TODO Auto-generated method stub
+			System.out.println("Area: N/A");
+			return 0d; 
+		}
+
+		@Override
+		public double getLength() {
+			// TODO Auto-generated method stub
+			System.out.println("Length: N/A");
+			return 0d; 
+		}
+		
+	}
+	
+	class Line extends Geometry {
+
+		@Override
+		public void getArea() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void getLength() {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+	
+	class Polyline extends Geometry {
+
+		@Override
+		public void getArea() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void getLength() {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+	
+	class Triangle extends Geometry {
+
+		@Override
+		public void getArea() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void getLength() {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+	
+	class Rectangle extends Geometry{
+
+		@Override
+		public void getArea() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void getLength() {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

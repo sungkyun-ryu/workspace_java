@@ -1,0 +1,80 @@
+package assignment;
+
+abstract class Geometry {
+
+	int[] xArr = new int[10];
+	int[] yArr = new int[10];
+
+	public abstract double getArea(); 
+	public abstract double getLength(); 
+}
+
+class Point extends Geometry {
+
+	public Point(int x1, int y2) {
+		super.xArr[0] = x1; 
+		super.yArr[0] = y2; 
+	}
+
+	@Override
+	public double getArea() {
+		// TODO Auto-generated method stub
+		System.out.print("No Area: ");
+		return 0;
+	}
+
+	@Override
+	public double getLength() {
+		// TODO Auto-generated method stub
+		System.out.print("No Length: ");
+		return 0;
+	}
+}
+
+class Line extends Geometry {
+
+	static int a1, b1, a2, b2;
+
+	public Line(int x1, int y1, int x2, int y2) {
+		super.xArr[0] = x1; super.xArr[1] = x2; 
+		super.yArr[0] = y1; super.yArr[1] = y2; 
+	}
+
+	@Override
+	public double getArea() {
+		// TODO Auto-generated method stub
+//		System.out.print("No Area: ");
+		return 0; 
+	}
+
+	@Override
+	public double getLength() {
+		// TODO Auto-generated method stub
+		//			System.out.print("The Length: ");
+		//			double side1_2= Math.pow(super.xArr[0]-super.xArr[1], 2); 
+		//			double side2_2= Math.pow(super.yArr[0]-super.yArr[1], 2);
+		//			return Math.pow(side1_2+side2_2, .5); 		
+		a1= xArr[0]; a2= xArr[1]; 
+		b1= yArr[0]; b2= yArr[1]; 
+		return Line.Length(); 
+
+	}
+
+	public static double Length() {
+		double side1_2= Math.pow(Math.abs(a1-a2), 2); 
+		double side2_2= Math.pow(Math.abs(b1-b2), 2);
+		return Math.pow(side1_2+side2_2, .5); 		
+	}
+
+}
+public class GeometryTest {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Line l= new Line(4,4,0,0); 
+		System.out.println(l.getArea()); 
+		System.out.println(l.getLength());
+		
+	}
+
+}
