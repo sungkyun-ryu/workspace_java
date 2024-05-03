@@ -1,1 +1,1 @@
-Hello
+Hi, I am making just a random text for try in java class. Assuming this class is successful.
