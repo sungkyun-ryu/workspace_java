@@ -18,13 +18,13 @@ class Items {
 	int x;
 	int y;
 	int dir;
-	
+
 	public Items(int x, int y, int d) {
 		this.x = x; 
 		this.y = y; 
 		this.dir = d;
 	}
-	
+
 	@Override 
 	public String toString() {
 		return "(" + this.x + ", "+ this.y+ ")";
@@ -34,7 +34,7 @@ class Items {
 class Offsets {
 	int a;
 	int b;
-	
+
 	public Offsets(int a, int b) {
 		this.a = a ; this.b = b;
 	}
@@ -44,25 +44,25 @@ class StackList {
 	List<Items> stk ; 
 	int top;
 	int capacity;
-	
+
 	public StackList(int size) {
 		this.capacity = size; 
 		stk = new ArrayList<>() ; 
 		top = 0 ;
 	}
-	
+
 	class OverflowGenericStackException extends RuntimeException { 
 		public OverflowGenericStackException() { 
 			super(); 
 		}
 	}
-	
+
 	class EmptyGenericStackException extends RuntimeException{ 
 		public EmptyGenericStackException() {
 			super(); 
 		}
 	}
-	
+
 	//--- 스택에 x를 푸시 ---//
 	public void push(Items x) throws OverflowGenericStackException {
 		//구현
@@ -104,42 +104,45 @@ public class Test_실습_미로찾기문제 {
 		temp.x = 1;
 		temp.y = 1;
 		temp.dir = 0;//E(동쪽부터):: if begins with 2, then N, NE will not be explored at the further points.
-		mark[temp.x][temp.y] = 2;//미로 찾기 궤적은 2로 표시
-		st.push(temp);
 		
-		
+		int g1 = temp.x+ moves[temp.dir].a;  int h1 = temp.y + moves[temp.dir].b;
 
-		while (!st.isEmpty()) // stack not empty
-		{
-			Items tmp = st.pop(); // unstack
-			int i = tmp.x;
-			int j = tmp.y;
-			int d = tmp.dir;
-			mark[i][j] = 1;//backtracking 궤적은 1로 표시
-			
-			while (d < 8) // moves forward
-			{	
-				int g = i+ moves[d].a;  int h = j + moves[d].b;
-			
-				// outFile << i << " " << j << " " << d << endl;
+		if (maze[g1][h1] == 0) {
+			mark[temp.x][temp.y] = 2;//미로 찾기 궤적은 2로 표시
+			temp.dir = temp.dir+1; 
+			st.push(temp);
+		} else {
+			while (!st.isEmpty()) // stack not empty
+			{
+				Items tmp = st.pop(); // unstack
+				int i = tmp.x;
+				int j = tmp.y;
+				int d = tmp.dir;
+				mark[i][j] = 1;//backtracking 궤적은 1로 표시
+				
+				int g= i+moves[d].a ; int h=j+moves[d].b; 
 
-				if ((g == ix) && (h == iy)) { // reached exit
-												// output path
-					System.out.println(mark);
+				while (d < 8) // moves forward
+				{	// outFile << i << " " << j << " " << d << endl;
+					if ((g == ix) && (h == iy)) { // reached exit
+						// output path
+						System.out.println(mark);
+					}
+					if ((maze[g][h] == 0) && (mark[g][h] == 0)) { // new position
+						tmp.dir = d+1; st.push(tmp); 
+						tmp.x = g; tmp.y=h; tmp.dir =0; st.push(tmp);					
+						mark[g][h] = 2; 
+
+						// push the old temp to the stack, but the direction changes.
+						// Because the neighbor in the direction of d has been checked.
+
+					} else
+						// try next direction
+						d = d+1; 
 				}
-				if ((maze[g][h] == 0) && (mark[g][h] == 0)) { // new position
-					tmp.dir = d+1; 
-					st.push(tmp); 
-
-					// push the old temp to the stack, but the direction changes.
-					// Because the neighbor in the direction of d has been checked.
-
-				} else
-					// try next direction
-					tmp.dir = d+1; 
 			}
+			System.out.println("no path in maze ");
 		}
-		System.out.println("no path in maze ");
 	}
 
 	public static void main(String[] args) {
@@ -159,6 +162,7 @@ public class Test_실습_미로찾기문제 {
 				{ 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0 },
 				{ 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0 },
 				{ 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0 }};
+
 		for (int ia = 0; ia < 8; ia++)
 			moves[ia] = new Offsets(0, 0);//배열에 offsets 객체를 치환해야 한다.
 		moves[0].a = -1;	moves[0].b = 0;
@@ -172,7 +176,7 @@ public class Test_실습_미로찾기문제 {
 		//Directions d;
 		//d = Directions.N;
 		//d = d + 1;//java는 지원안됨
-		
+
 		for (int i = 0; i < 14; i++) {
 			for (int j = 0; j < 17; j++) {
 				//input[][]을 maze[][]로 복사
@@ -183,7 +187,7 @@ public class Test_실습_미로찾기문제 {
 				}
 			}
 		}
-		
+
 		System.out.println("maze[12,15]::");
 		for (int i = 0; i <= 13; i++) {
 			for (int j = 0; j <= 16; j++) {
@@ -199,7 +203,7 @@ public class Test_실습_미로찾기문제 {
 			}
 			System.out.println();
 		}
-//		path(maze, mark, 12, 15); //출구번호 12, 15 
+		path(maze, mark, 12, 15); //출구번호 12, 15 
 		System.out.println("mark::");
 		for (int i = 1; i <= 12; i++) {
 			for (int j = 1; j <= 15; j++) {
