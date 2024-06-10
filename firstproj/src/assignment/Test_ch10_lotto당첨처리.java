@@ -37,8 +37,27 @@ public class Test_ch10_lotto당첨처리 {
 
 	public static void main(String[] args) {
 
-		lotto_generator(10);
-
+//		lotto_generator(10);
+		HashSet<Integer> winnum = new HashSet<>();
+		winnum.add(1); 
+		winnum.add(2); 
+		winnum.add(3); 
+		winnum.add(4); 
+		winnum.add(5); 
+		winnum.add(6); 
+		winnum.add(7);
+		
+		
+		List<Integer> myticket = new ArrayList<> (); 
+		myticket.add(3); 
+		myticket.add(4);
+		myticket.add(5);
+		myticket.add(6);
+		myticket.add(7);
+		myticket.add(8);
+		myticket.add(9);
+		
+		checkWinner(winnum, myticket);		
 	}
 
 	public static void lotto_generator(int n) {
@@ -104,12 +123,25 @@ public class Test_ch10_lotto당첨처리 {
 	static void winnerLotto(HashSet<Integer> w,List<List<Integer>> al ) {
 		// 당첨번호 w에 대하여 발행된 복권 리스트 al의 모든 원소 elem에 대하여 조사한다
 		for (int i = 0; i < al.size(); i++) {
-		//구현할 부분
-			
-				
-			
+		//구현할 부분 (완료)
+			Iterator<Integer> ticket = al.get(i).iterator();
+			for(int num : w) {
+				int k=0 ; 
+				while(ticket.hasNext()) {					 
+					if(num == ticket.next()) k += 1; 
+				}	
+				if (k == 6) {
+					System.out.println(al.get(i));
+				} else
+					break;
+			}
 		}
 	}
+	
+	
+	
+	
+	
 	static void checkWinner(HashSet<Integer> w,List<Integer> elem) {
 		// 당첨번호 w의 각 숫자를 꺼내 복권 엔트리에 포함되어 있는지를 조사
 		List<Integer> L = new ArrayList<>(w);
@@ -120,6 +152,10 @@ public class Test_ch10_lotto당첨처리 {
 			 * 당첨번호 각 번호를 몇개 포함하는지를 elem에 대하여 조사
 			 */
 			//구현할 부분
+			Iterator<Integer> elem_it = elem.iterator();
+			while(elem_it.hasNext()) {
+				if (L.get(i) == elem_it.next()) count += 1; 
+			}			
 		}
 		switch (count) {
 		case 0:
