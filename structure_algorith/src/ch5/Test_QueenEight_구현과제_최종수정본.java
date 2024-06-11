@@ -25,13 +25,16 @@ class Point {
 
 	@Override
 	public String toString() {
-	
+		return "( " + ix + ", " + iy + " )" ; 
 	}
 
 	@Override
 	public boolean equals(Object p) {
-
-	}
+		Point p1 = (Point) p ; 
+		if( p1.ix == this.ix && p1.iy == this.iy) 
+			return true;
+		return false;
+	} 
 }
 
 class Stack4 {
@@ -59,23 +62,37 @@ class Stack4 {
 
 	// --- 생성자(constructor) ---//
 	public Stack4(int capacity) {
-
+		this.capacity = capacity; 
+		this.top = 0; 
+		this.data = new ArrayList<>();
 	}
 
 	// --- 스택에 x를 푸시 ---//
 	public boolean push(Point x) throws OverflowGenericStackException {
-
-
+		if (top == capacity) 
+			throw new OverflowGenericStackException("The Stack's full");
+		else {
+			data.add(x); top += 1;
+			return true; 
+		} 
 	}
 
 	// --- 스택에서 데이터를 팝(정상에 있는 데이터를 꺼냄) ---//
 	public Point pop() throws EmptyGenericStackException {
-
+		if (top == 0)
+			throw new EmptyGenericStackException("The Stack's empty"); 
+		else {
+			return data.remove(top--);
+		}
 	}
 
 	// --- 스택에서 데이터를 피크(peek, 정상에 있는 데이터를 들여다봄) ---//
 	public Point peek() throws EmptyGenericStackException {
-
+		if (top == 0) 
+			throw new EmptyGenericStackException("The Stack's empty"); 
+		else {
+			return data.get(top); 
+		}
 	}
 
 	// --- 스택을 비움 ---//
@@ -136,34 +153,75 @@ public class Test_QueenEight_구현과제_최종수정본 {
 		st.push(p);// 스택에 현 위치 객체를 push
 		while (true) {
 
+		}
 	}
-		public static boolean checkRow(int[][] d, int crow) { //배열 d에서 행 crow에 퀸을 배치할 수 있는지 조사
+	public static boolean checkRow(int[][] d, int crow) { //배열 d에서 행 crow에 퀸을 배치할 수 있는지 조사
+		for (int j = 0; j < d.length; j++) {
+			if (d[crow][j] == 1) return false;			
+		} return true; 
+	}
+
+	public static boolean checkCol(int[][] d, int ccol) {//배열 d에서 열 ccol에 퀸을 배치할 수 있는지 조사
+		for (int i = 0; i<d[0].length; i++) {
+			if (d[i][ccol] == 1) return false;
+		} return true;
+	}
+	//배열 d에서 행 cx, 열 cy에 퀸을 남서, 북동 대각선으로 배치할 수 있는지 조사
+	public static boolean checkDiagSW(int[][] d, int cx, int cy) { // x++, y-- or x--, y++ where 0<= x,y <= 7
+		for (int x = cx, y = cy; x >= 0 || y <= 7; x--, y++ ) {
+			if (d[x][y] == 1) 
+				return false;
+		}		
+		for (int x = cx, y = cy; x <= 7 || y >= 0; x++, y-- ) {
+			if (d[x][y] == 1)
+				return false;
+		}
+		return true;
+	}
+
+	//배열 d에서 행 cx, 열 cy에 퀸을 남동, 북서 대각선으로 배치할 수 있는지 조사
+	public static boolean checkDiagSE(int[][] d, int cx, int cy) {// x++, y++ or x--, y--
+		int x = cx; int y = cy; 
+		while(x <= 7 || y <= 7) {
+			if(d[x][y] == 1) return false;
+			else {
+				x++; y++;
+			}
+		}
+		if (x==8 || y==8) {
+			while(cx >= 0 || cy >= 0 ) {
+				if (d[cx][cy] == 1 ) return true;
+				else {
+					x--; y--;
+				}
+			}			
+		}
+		return false;	
+	}
 	
-		}
+	//배열 d에서 (x,y)에 퀸을 배치할 수 있는지  조사
+	public static boolean checkMove(int[][] d, int x, int y) {// (x,y)로 이동 가능한지를 check
+		if (d[x][y] == 1) return true;
+		return false;
+	}
+	//배열 d에서 현재 위치(row,col)에 대하여 다음에 이동할 위치 nextCol을 반환, 이동이 가능하지 않으면 -1를 리턴
+	public static int nextMove(int[][] d, int row, int col) {// 현재 row, col에 대하여 이동할 col을 return
+		for(int i = 0 ; i < d[0].length; i++) {
+			if(checkCol(d,i) == true) {
+				int can_col = i; 
+				if(checkDiagSW(d, row+1, can_col) == true && checkDiagSE(d,row+1,can_col)==true) {
+					return can_col;
+				}
+			}
+		} return -1;
+	}
 
-		public static boolean checkCol(int[][] d, int ccol) {//배열 d에서 열 ccol에 퀸을 배치할 수 있는지 조사
-
-		}
-		//배열 d에서 행 cx, 열 cy에 퀸을 남서, 북동 대각선으로 배치할 수 있는지 조사
-		public static boolean checkDiagSW(int[][] d, int cx, int cy) { // x++, y-- or x--, y++ where 0<= x,y <= 7
-	
-		}
-
-		//배열 d에서 행 cx, 열 cy에 퀸을 남동, 북서 대각선으로 배치할 수 있는지 조사
-		public static boolean checkDiagSE(int[][] d, int cx, int cy) {// x++, y++ or x--, y--
-
-		}
-		//배열 d에서 (x,y)에 퀸을 배치할 수 있는지  조사
-		public static boolean checkMove(int[][] d, int x, int y) {// (x,y)로 이동 가능한지를 check
-	
-		}
-		//배열 d에서 현재 위치(row,col)에 대하여 다음에 이동할 위치 nextCol을 반환, 이동이 가능하지 않으면 -1를 리턴
-		public static int nextMove(int[][] d, int row, int col) {// 현재 row, col에 대하여 이동할 col을 return
-
-		}
-	
 	static void showQueens(int[][] data) {// 배열 출력
-
+		for (int i = 0; i < data.length; i++) {
+			for (int j =0 ; j<data[0].length; j++) {
+				System.out.print(data[i][j] + " ");				
+			} System.out.println("");
+		}
 	}
 
 	public static void main(String[] args) {
