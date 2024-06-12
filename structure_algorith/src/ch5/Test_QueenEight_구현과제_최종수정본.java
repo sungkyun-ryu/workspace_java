@@ -4,6 +4,8 @@ package ch5;
 import java.util.ArrayList;
 import java.util.List;
 
+import ch5.Stack4.EmptyGenericStackException;
+
 //https://www.geeksforgeeks.org/n-queen-problem-backtracking-3/?ref=lbp
 //N Queen problem / backtracking
 //모든 해가 나오는 버젼 만들기 
@@ -152,7 +154,10 @@ public class Test_QueenEight_구현과제_최종수정본 {
 		iy++;
 		st.push(p);// 스택에 현 위치 객체를 push
 		while (true) {
-
+			Point p1 = st.pop(); 
+			int next_col = nextMove(d,ix,iy);
+			
+			
 		}
 	}
 	public static boolean checkRow(int[][] d, int crow) { //배열 d에서 행 crow에 퀸을 배치할 수 있는지 조사
