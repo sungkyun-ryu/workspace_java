@@ -37,6 +37,14 @@ class Point {
 			return true;
 		return false;
 	} 
+
+	public int getX() {
+		return this.ix; 		
+	}
+
+	public int getY() {
+		return this.iy;
+	}
 }
 
 class Stack4 {
@@ -44,16 +52,15 @@ class Stack4 {
 	// generic class는 Throwable을 상속받을 수 없다 - 지원하지 않는다
 	public class EmptyGenericStackException extends Exception {
 		private static final long serialVersionUID = 1L;
-
-		public EmptyGenericStackException(String message) {
-			super(message);
+		public EmptyGenericStackException() {
+			super("It's EMPTY");
 		}
 	}
 
 	// --- 실행시 예외: 스택이 가득 참 ---//
 	public class OverflowGenericStackException extends RuntimeException {
-		public OverflowGenericStackException(String message) {
-			super(message);
+		public OverflowGenericStackException() {
+			super("It's FULL");
 		}
 	}
 
@@ -72,7 +79,7 @@ class Stack4 {
 	// --- 스택에 x를 푸시 ---//
 	public boolean push(Point x) throws OverflowGenericStackException {
 		if (top == capacity) 
-			throw new OverflowGenericStackException("The Stack's full");
+			throw new OverflowGenericStackException();
 		else {
 			data.add(x); top += 1;
 			return true; 
@@ -81,17 +88,18 @@ class Stack4 {
 
 	// --- 스택에서 데이터를 팝(정상에 있는 데이터를 꺼냄) ---//
 	public Point pop() throws EmptyGenericStackException {
-		if (top == 0)
-			throw new EmptyGenericStackException("The Stack's empty"); 
+		if (this.isEmpty())
+			throw new EmptyGenericStackException(); 
 		else {
-			return data.remove(top--);
+			--top;
+			return data.remove(top);
 		}
 	}
 
 	// --- 스택에서 데이터를 피크(peek, 정상에 있는 데이터를 들여다봄) ---//
 	public Point peek() throws EmptyGenericStackException {
 		if (top == 0) 
-			throw new EmptyGenericStackException("The Stack's empty"); 
+			throw new EmptyGenericStackException(); 
 		else {
 			return data.get(top); 
 		}
@@ -133,7 +141,7 @@ class Stack4 {
 	// --- 스택 안의 모든 데이터를 바닥 → 꼭대기 순서로 출력 ---//
 	public void dump() throws EmptyGenericStackException{
 		if (top <= 0)
-			throw new EmptyGenericStackException("stack:: dump - empty");
+			throw new EmptyGenericStackException();
 		else {
 			for (int i = 0; i < top; i++)
 				System.out.print(data.get(i) + " ");
@@ -143,7 +151,7 @@ class Stack4 {
 }
 
 public class Test_QueenEight_구현과제_최종수정본 {
-	public static void EightQueen(int[][] d) {
+	public static void EightQueen(int[][] d)  {
 		int count = 0;// 퀸 배치 갯수
 		int numberSolutions = 0;
 		int ix = 0, iy = 0;// 행 ix, 열 iy
@@ -151,13 +159,41 @@ public class Test_QueenEight_구현과제_최종수정본 {
 		Point p = new Point(ix, iy);// 현 위치를 객체로 만들고
 		d[ix][iy] = 1;// 현 위치에 queen을 넣었다는 표시를 하고
 		count++;
-		iy++;
+		ix++;
 		st.push(p);// 스택에 현 위치 객체를 push
 		while (true) {
-			Point p1 = st.pop(); 
-			int next_col = nextMove(d,ix,iy);
-			
-			
+			if (st.isEmpty() && count == 8)
+				break;
+			//for (int y = iy; y < d[0].length; y++) {
+			iy = nextMove(d, ix, iy);
+			if (iy < 0) {
+				p = st.pop();
+				ix = p.getX();
+				iy = p.getY();
+				count--;
+				d[ix][iy] = 0;//물리기
+				iy++;
+				continue;
+			} 	
+			else {//이동 가능하다
+
+				p = new Point(ix, iy); 
+				st.push(p);
+				d[ix][iy]=1; 
+				count++;
+				ix++ ; iy=0;
+				if (count == 8) {
+					//출력-배치도
+					numberSolutions ++ ;
+					p = st.pop();
+					ix = p.getX();
+					iy = p.getY();
+					count--;
+					d[ix][iy] = 0;//물리기
+					iy++;
+				}
+				continue;
+			}
 		}
 	}
 	public static boolean checkRow(int[][] d, int crow) { //배열 d에서 행 crow에 퀸을 배치할 수 있는지 조사
@@ -173,11 +209,12 @@ public class Test_QueenEight_구현과제_최종수정본 {
 	}
 	//배열 d에서 행 cx, 열 cy에 퀸을 남서, 북동 대각선으로 배치할 수 있는지 조사
 	public static boolean checkDiagSW(int[][] d, int cx, int cy) { // x++, y-- or x--, y++ where 0<= x,y <= 7
-		for (int x = cx, y = cy; x >= 0 || y <= 7; x--, y++ ) {
+		for (int x = cx, y = cy; x >= 0 && y <= 7; x--, y++ ) {
 			if (d[x][y] == 1) 
-				return false;
+				return false; 
 		}		
-		for (int x = cx, y = cy; x <= 7 || y >= 0; x++, y-- ) {
+
+		for (int x = cx, y = cy; x <= 7 && y >= 0; x++, y-- ) {
 			if (d[x][y] == 1)
 				return false;
 		}
@@ -187,39 +224,41 @@ public class Test_QueenEight_구현과제_최종수정본 {
 	//배열 d에서 행 cx, 열 cy에 퀸을 남동, 북서 대각선으로 배치할 수 있는지 조사
 	public static boolean checkDiagSE(int[][] d, int cx, int cy) {// x++, y++ or x--, y--
 		int x = cx; int y = cy; 
-		while(x <= 7 || y <= 7) {
+		while(x <= 7 && y <= 7) {
 			if(d[x][y] == 1) return false;
 			else {
 				x++; y++;
 			}
 		}
 		if (x==8 || y==8) {
-			while(cx >= 0 || cy >= 0 ) {
-				if (d[cx][cy] == 1 ) return true;
+			x= cx; y=cy;
+			while(x >= 0 && y >= 0 ) {
+				if (d[x][y] == 1 ) return false;
 				else {
 					x--; y--;
 				}
 			}			
 		}
-		return false;	
+		return true;	
 	}
-	
+
 	//배열 d에서 (x,y)에 퀸을 배치할 수 있는지  조사
 	public static boolean checkMove(int[][] d, int x, int y) {// (x,y)로 이동 가능한지를 check
-		if (d[x][y] == 1) return true;
+		if (checkRow(d,x) && checkCol(d,y) && checkDiagSE(d,x,y) && checkDiagSW(d,x,y) ) return true;
 		return false;
 	}
+
 	//배열 d에서 현재 위치(row,col)에 대하여 다음에 이동할 위치 nextCol을 반환, 이동이 가능하지 않으면 -1를 리턴
 	public static int nextMove(int[][] d, int row, int col) {// 현재 row, col에 대하여 이동할 col을 return
-		for(int i = 0 ; i < d[0].length; i++) {
-			if(checkCol(d,i) == true) {
-				int can_col = i; 
-				if(checkDiagSW(d, row+1, can_col) == true && checkDiagSE(d,row+1,can_col)==true) {
-					return can_col;
-				}
+		for(int i = col ; i < d.length; i++) {
+			if(checkMove(d,row,i) == true) {
+				//				int can_row = i; 
+				//				if(checkDiagSW(d, can_row, col+1) == true && checkDiagSE(d,can_row,col+1)==true) {
+				//					return can_row;
+				return i;
 			}
-		} return -1;
-	}
+		}return -1;
+	} 
 
 	static void showQueens(int[][] data) {// 배열 출력
 		for (int i = 0; i < data.length; i++) {
@@ -229,9 +268,9 @@ public class Test_QueenEight_구현과제_최종수정본 {
 		}
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws EmptyGenericStackException {
 		int row = 8, col = 8;
-		int[][] data = new int[8][8];
+		int[][] data = new int[row][col];
 		for (int i = 0; i < data.length; i++)
 			for (int j = 0; j < data[0].length; j++)
 				data[i][j] = 0;

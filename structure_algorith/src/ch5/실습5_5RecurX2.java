@@ -1,4 +1,4 @@
-package Chap5_Recursive;
+package ch5;
 /*
  * 실습 5-7: stack을 이용한 non-recursive 코드로 구현
  * 정수 스택을 사용한 non-recursive 코드 구현

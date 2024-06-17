@@ -6,8 +6,12 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value=""/>
+		<item key="selection" value="ShowPolynomial"/>
 		<list key="findhistory">
+			<item value="ShowTerm"/>
+			<item value="y"/>
+			<item value="x"/>
+			<item value="Polynomial"/>
 			<item value="equals"/>
 			<item value="int"/>
 			<item value="winner"/>
@@ -17,6 +21,10 @@
 			<item value="c"/>
 		</list>
 		<list key="replacehistory">
+			<item value="ShowPolynomial"/>
+			<item value="polynomialY"/>
+			<item value="polynomialX"/>
+			<item value="Term"/>
 			<item value="double"/>
 			<item value="Student10"/>
 		</list>

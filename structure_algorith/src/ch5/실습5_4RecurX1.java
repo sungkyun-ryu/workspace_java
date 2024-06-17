@@ -1,4 +1,4 @@
-package Chap5_Recursive;
+package ch5;
 /*
  * //실습 5-6 : recursive의 tail 부분을 non-recursive 코드로 수정
  * 
