@@ -24,8 +24,9 @@ class LinkedList1 {
 	public boolean Delete(int element) //전달된 element 값이 존재 하면 삭제하고 true로 리턴
 	{
 		Node1 q, current = first;
-		q = current;
-
+		q = current; 
+		
+		
 	}
 
 	public void Show() { // 전체 리스트를 순서대로 출력한다.
@@ -41,35 +42,14 @@ class LinkedList1 {
 		{
 			first = newNode;
 			return;
-		}
-		Node1 p = first, q = null; 
-		while(p!= null) {
-			if(element > p.data) {
-				q = p; //q follows p 
-				p = p.link; 
-			}
-			else { /// in the middle of the list
-				if(q==null) {
-					newNode.link = p;
-					first = newNode;
-					return;
-				}				
-				q.link= newNode; 
-				newNode.link = p; 
-				return;
-			}
-		}
-		if (q != null) { /// up to last 
+		} else {
 			
 		}
+
 	}
 
 	public boolean Search(int data) { //전달된 data 값을 찾아 존재하면 true로 리턴, 없으면 false로 리턴
 		Node1 ptr = first;
-		while(ptr != null) {
-			if (data == ptr.data) return true; 
-		} 
-		ptr = ptr.link;
 
 		return false;
 	}
@@ -80,6 +60,7 @@ class LinkedList1 {
 		 * 난이도 등급: 최상
 		 * a = (3, 5, 7), b = (2,4,8,9)이면 a = (2,3,4,5,8,9)가 되도록 구현하는 코드
 		 */
+
 	}
 }
 
@@ -130,7 +111,9 @@ public class 실습9_1정수연결리스트 {
 		Random rand = new Random();
 		LinkedList1 l = new LinkedList1();
 		Scanner sc = new Scanner(System.in);
-		int count = 0; //난수 생성 갯수
+		System.out.println("추가할 난수 숫자 개수::");
+		int count = sc.nextInt(); //난수 생성 갯수
+
 		int data = 0;
 		do {
 			switch (menu = SelectMenu()) {//Menu 생성자 호출 - menu 객체를 리턴한다 
@@ -163,7 +146,13 @@ public class 실습9_1정수연결리스트 {
 					data = rand.nextInt(20);
 					l2.Add(data);
 				}
+				System.out.println("리스트 l::");
+				l.Show();
+				System.out.println("리스트 l2::");
+				l2.Show();
 				l.Merge(l2);//merge 실행후 show로 결과 확인 - 새로운 노드를 만들지 않고 합병 - 난이도 상
+				System.out.println("병합 리스트 l::");
+				l.Show();
 				break;
 			case Exit: // 꼬리 노드 삭제
 				break;
