@@ -21,22 +21,32 @@ class Term implements Comparable<Term>{
 public class Test_다항식merge연산 {
 
 	static void merge(Term[] a, int lefta, int righta, int leftb, int rightb ) {
-		Term[] c = new Term[a.length]; int n= 0; 
+		Term[] c = new Term[rightb-lefta+1]; int n = 0; int m= lefta;
 		while(lefta <= righta && leftb <= rightb) {
 			if(a[lefta].compareTo(a[leftb]) <= 0) {
 				c[n++] = a[lefta++];
-			} else c[n++] = a[leftb++]; 
+			} else {c[n++] = a[leftb++]; }
 		}
-		if (lefta <= righta) {
-			for (int i = lefta; i <= righta; i++) {
-				c[n++] = a[lefta++]; 
-			}
-		}
-		if (leftb <= rightb) {
-			for (int i = leftb; i <= rightb; i++) {
-				c[n++] = a[leftb++];
-			}
-		}
+		while(lefta <= righta) 	c[n++] = a[lefta++];		
+		while(leftb <= rightb) c[n++] = a[leftb++];
+		for(int i = 0; i < c.length ; i++) a[m++] = c[i];
+
+		//		Term[] c = new Term[a.length]; int n= 0; 
+		//		while(lefta <= righta && leftb <= rightb) {
+		//			if(a[lefta].compareTo(a[leftb]) <= 0) {
+		//				c[n++] = a[lefta++];
+		//			} else c[n++] = a[leftb++]; 
+		//		}
+		//		if (lefta <= righta) {
+		//			for (int i = lefta; i <= righta; i++) {
+		//				c[n++] = a[lefta++]; 
+		//			}
+		//		}
+		//		if (leftb <= rightb) {
+		//			for (int i = leftb; i <= rightb; i++) {
+		//				c[n++] = a[leftb++];
+		//			}
+		//		}
 	}
 
 	// --- 퀵 정렬(비재귀 버전)---//
@@ -51,26 +61,28 @@ public class Test_다항식merge연산 {
 
 	static void ShowPolynomial(Term[] poly) {
 		for(int i = 0; i < poly.length; i++) {
-			if(poly[i].exp >= 2) 
-				System.out.print(poly[i].coef + "x" + " ** " + poly[i].exp );
-			else if(poly[i].exp == 1)
-				System.out.print(poly[i].coef + "x" );
-			else 
-				System.out.print(poly[i].coef);
+//			while(poly[i] != null) {
+				if(poly[i].exp >= 2) 
+					System.out.print(poly[i].coef + "x" + " ** " + poly[i].exp );
+				else if(poly[i].exp == 1)
+					System.out.print(poly[i].coef + "x" );
+				else 
+					System.out.print(poly[i].coef);
 
-			if (i != poly.length-1) 
-				System.out.print(" + ");
-			else 
-				System.out.println("\n");
-		}
+				if (i != poly.length-1) 
+					System.out.print(" + ");
+				else 
+					System.out.println("\n");
+//			}
+		}		
 	}
 
 	static void AddTerm(Term[]a, Term[]b, Term[]c) {
 		int p = 0; int q=0; int r=0; 
 		while(p<a.length && q < b.length) {
 			if (a[p].exp == b[q].exp) {
-				c[r].coef= a[p].coef + b[q].coef ;
-				c[r].exp = a[p].exp; 
+				Term n = new Term(a[p].coef + b[q].coef,a[p].exp); 
+				c[r] = n;				
 				p++; r++; q++; 
 			}
 		}		

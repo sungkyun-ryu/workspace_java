@@ -25,34 +25,66 @@ class LinkedList1 {
 	{
 		Node1 q, current = first;
 		q = current; 
-		
-		
+		if (first.data == element) {first = first.link; return true;} // first deleted.
+		else {			
+			while(current.link != null) {
+				current= current.link;
+				if(current.data == element) {
+					q.link = current.link; return true;
+				}
+				q = q.link ; current = current.link;
+			}
+		} return false;
 	}
 
 	public void Show() { // 전체 리스트를 순서대로 출력한다.
 		Node1 p = first;
 		int num = 0;
-
+		while(p.link != null) {
+			num = p.data; System.out.print(num + ", "); p = p.link; 
+		}
+		num= p.data; System.out.print(num);System.out.println();
 	}
 
 	public void Add(int element) // 임의 값을 삽입할 때 리스트가 오름차순으로 정렬이 되도록 한다
 	{
-		Node1 newNode = new Node1(element);
+		Node1 newNode = new Node1(element);  
 		if (first == null) // insert into empty list
-		{
-			first = newNode;
-			return;
+		{	first = newNode;
+		return;
+		} else if (first.link == null) {
+			if (first.data <= element) first.link = newNode;
+			else {newNode.link= first; first = newNode;}
 		} else {
-			
+			Node1 p, q; q = first; p = first.link; 
+			if(element <= first.data) {newNode.link = first; first = newNode;}
+			else {
+				while(p != null) {
+					if(element <= p.data) { newNode.link = p; q.link = newNode; break;}
+					else {	
+						if(p.link != null) {
+							q= q.link; p= p.link; 	
+						} else { 
+							if(p.data < element) {p.link = newNode; break;}
+							else newNode.link = p; q.link = newNode; break;
+						}
+					}
+				}
+			} 
 		}
-
 	}
+
+
+
 
 	public boolean Search(int data) { //전달된 data 값을 찾아 존재하면 true로 리턴, 없으면 false로 리턴
 		Node1 ptr = first;
-
-		return false;
-	}
+		while(ptr.link != null) {
+			if(ptr.data == data) return true; 
+			else ptr = ptr.link;
+		}
+		if (ptr.data == data) return true;
+		return false;	}
 	void Merge(LinkedList1 b) {
 		/*
 		 * 연결리스트 a,b에 대하여 a = a + b
@@ -60,7 +92,21 @@ class LinkedList1 {
 		 * 난이도 등급: 최상
 		 * a = (3, 5, 7), b = (2,4,8,9)이면 a = (2,3,4,5,8,9)가 되도록 구현하는 코드
 		 */
-
+		Node1 p, q, r, s ; 
+		if(b.first != null && first != null) {
+			if(first.data < b.first.data) { 
+				p= first.link; q= first; r= b.first;				
+			} else {
+				p= b.first.link; q= b.first; r= first;
+			}
+			while(p.link != null) {
+				while(p.data < r.data) {
+					p= p.link; q=q.link;
+				}
+				s= p; p = r.link; q.link = r; q= q.link; r= s; 
+			}
+			p.link = r;
+		}
 	}
 }
 
@@ -111,7 +157,7 @@ public class 실습9_1정수연결리스트 {
 		Random rand = new Random();
 		LinkedList1 l = new LinkedList1();
 		Scanner sc = new Scanner(System.in);
-		System.out.println("추가할 난수 숫자 개수::");
+		System.out.print("추가할 난수 숫자 개수:: ");
 		int count = sc.nextInt(); //난수 생성 갯수
 
 		int data = 0;
