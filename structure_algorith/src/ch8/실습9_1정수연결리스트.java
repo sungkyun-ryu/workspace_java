@@ -26,13 +26,13 @@ class LinkedList1 {
 		Node1 q, current = first;
 		q = current; 
 		if (first.data == element) {first = first.link; return true;} // first deleted.
-		else {			
-			while(current.link != null) {
+		else {	
+			while(current!= null) {
 				current= current.link;
 				if(current.data == element) {
 					q.link = current.link; return true;
 				}
-				q = q.link ; current = current.link;
+//				q = q.link ; current = current.link;
 			}
 		} return false;
 	}
@@ -40,10 +40,9 @@ class LinkedList1 {
 	public void Show() { // 전체 리스트를 순서대로 출력한다.
 		Node1 p = first;
 		int num = 0;
-		while(p.link != null) {
-			num = p.data; System.out.print(num + ", "); p = p.link; 
-		}
-		num= p.data; System.out.print(num);System.out.println();
+		while(p != null) {
+			num = p.data; System.out.print(num + "  "); p = p.link; 
+		} System.out.println();
 	}
 
 	public void Add(int element) // 임의 값을 삽입할 때 리스트가 오름차순으로 정렬이 되도록 한다
@@ -93,19 +92,21 @@ class LinkedList1 {
 		 * a = (3, 5, 7), b = (2,4,8,9)이면 a = (2,3,4,5,8,9)가 되도록 구현하는 코드
 		 */
 		Node1 p, q, r, s ; 
-		if(b.first != null && first != null) {
+		if(b.first != null && first != null) {//counter ex= {0,0,1,2}, {0,0,1,3}	
 			if(first.data < b.first.data) { 
 				p= first.link; q= first; r= b.first;				
 			} else {
 				p= b.first.link; q= b.first; r= first;
 			}
-			while(p.link != null) {
-				while(p.data < r.data) {
-					p= p.link; q=q.link;
+			
+			while(p != null && r != null) {
+				while(p.data <= r.data) {
+					p= p.link; q=q.link; 
+					if(p==null) break;
 				}
-				s= p; p = r.link; q.link = r; q= q.link; r= s; 
-			}
-			p.link = r;
+				s= p; q.link = r; r.link = p; q= q.link; r= s; 
+			}					
+			q.link = r;
 		}
 	}
 }
@@ -160,7 +161,8 @@ public class 실습9_1정수연결리스트 {
 		System.out.print("추가할 난수 숫자 개수:: ");
 		int count = sc.nextInt(); //난수 생성 갯수
 
-		int data = 0;
+		int data = 0;		
+		
 		do {
 			switch (menu = SelectMenu()) {//Menu 생성자 호출 - menu 객체를 리턴한다 
 			case Add: // 난수를 삽입하는데 올림차순으로 정렬되도록 구현
@@ -204,5 +206,45 @@ public class 실습9_1정수연결리스트 {
 				break;
 			}
 		} while (menu != Menu.Exit);
+		
+		
+
+		
+//		for (int o = 0 ;o < 10; o++) {
+//			
+//			
+//			System.out.print("추가할 난수 숫자 개수:: ");
+//			int count = sc.nextInt(); //난수 생성 갯수
+//	
+//			int data = 0;
+//			
+//			//add
+//			for (int i =0; i < count; i++) {
+//				data = rand.nextInt(20);
+//				l.Add(data);
+//			}
+//			//merge
+//			LinkedList1 l2 = new LinkedList1();
+//			for (int i =0; i < count; i++) {
+//				data = rand.nextInt(20);
+//				l2.Add(data);
+//			}
+//			System.out.println("리스트 l::");
+//			l.Show();
+//			System.out.println("리스트 l2::");
+//			l2.Show();
+//			l.Merge(l2);//merge 실행후 show로 결과 확인 - 새로운 노드를 만들지 않고 합병 - 난이도 상
+//			System.out.println("병합 리스트 l::");
+//			l.Show();
+//			
+//			
+//			
+//			System.out.println("\n");
+//			}
+//		
+		
+		
+		
+		
 	}
 }
