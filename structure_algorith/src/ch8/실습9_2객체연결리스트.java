@@ -1,4 +1,4 @@
-package Chap8_List;
+package ch8;
 /*
  * 정수 리스트 > 객체 리스트: 2번째 실습 대상
  */
@@ -41,7 +41,8 @@ class SimpleObject5 {
 
 	private static class NoOrderComparator implements Comparator<SimpleObject5> {
 		public int compare(SimpleObject5 d1, SimpleObject5 d2) {
-			return (d1.no.compareTo(d2.no) > 0) ? 1 : (d1.no.compareTo(d2.no)<0) ? -1 : 0;
+//			return (d1.no.compareTo(d2.no) > 0) ? 1 : (d1.no.compareTo(d2.no)<0) ? -1 : 0;
+			return Integer.parseInt(d1.no) - Integer.parseInt(d2.no);
 		}
 	}
 
@@ -74,24 +75,48 @@ class LinkedList2 {
 	{
 		Node2 q, current = first;
 		q = current;
-
-		return -1;// 삭제할 대상이 없다.
+		if (cc.compare(first.data, element) == 0) {first= q.link; return 1;}
+		while(cc.compare(current.data, element) < 0 && current != null) {
+			q= current; current= current.link;
+		}
+		if(cc.compare(current.data, element) == 0) {
+			q.link = current.link;
+			return 1; 
+		}  return -1;// 삭제할 대상이 없다.
 	}
 	public void Show() { // 전체 리스트를 순서대로 출력한다.
 		Node2 p = first;
 		SimpleObject5 so;
-
+		while(p!= null){
+			so = p.data; 
+			System.out.print(so.toString() + "   ");
+			p = p.link;
+		} System.out.println();
 	}
+	
 	public void Add(SimpleObject5 element, Comparator<SimpleObject5> cc) 
 	//임의 값을 삽입할 때 리스트가 오름차순으로 정렬이 되도록 한다
 	{
 		Node2 newNode = new Node2(element);
 		if (first == null) //insert into empty list
-		{
-			first = newNode;
+		{	first = newNode;
 			return;
+		} else {
+			Node2 p= first, q = p; 
+			while(p!=null) {
+				if(cc.compare(p.data, element) < 0) {
+					q = p; p=p.link; 
+				} else {
+					if(q == p) {
+						first= newNode; newNode.link = p; break;
+					} else {
+						q.link= newNode; 
+						newNode.link = p; 
+						break;
+					} 
+				}
+			} if(p==null) q.link = newNode;
 		}
-
 	}
 	public boolean Search(SimpleObject5 element, Comparator<SimpleObject5> cc) { 
 		// 전체 리스트를 올림차순 순서대로 출력한다.

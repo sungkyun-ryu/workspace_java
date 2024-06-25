@@ -1,6 +1,6 @@
 package ch8;
 //단순한 linked list에서 insert, delete하는 알고리즘을 코딩: 1단계
-
+//////////////////////////////D.O.N.E!///////////////////////////////
 import java.util.Random;
 import java.util.Scanner;
 
@@ -32,7 +32,7 @@ class LinkedList1 {
 				if(current.data == element) {
 					q.link = current.link; return true;
 				}
-//				q = q.link ; current = current.link;
+				//				q = q.link ; current = current.link;
 			}
 		} return false;
 	}
@@ -91,22 +91,35 @@ class LinkedList1 {
 		 * 난이도 등급: 최상
 		 * a = (3, 5, 7), b = (2,4,8,9)이면 a = (2,3,4,5,8,9)가 되도록 구현하는 코드
 		 */
-		Node1 p, q, r, s ; 
+		Node1 p, q, r, s;
 		if(b.first != null && first != null) {//counter ex= {0,0,1,2}, {0,0,1,3}	
 			if(first.data < b.first.data) { 
 				p= first.link; q= first; r= b.first;				
 			} else {
-				p= b.first.link; q= b.first; r= first;
+				p= b.first.link; q= b.first; r= first; first=q;
 			}
+		
 			
-			while(p != null && r != null) {
+			while(p != null) {
 				while(p.data <= r.data) {
 					p= p.link; q=q.link; 
 					if(p==null) break;
 				}
-				s= p; q.link = r; r.link = p; q= q.link; r= s; 
-			}					
-			q.link = r;
+				if(p!=null){
+					s= p; q.link = r; q= q.link; p=r.link; r= s;
+				}
+			}			
+			
+			if(r != null) q.link = r;
+
+//			while(p != null && r != null) {
+//				while(p.data <= r.data) {
+//					p= p.link; q=q.link; 
+//					if(p==null) break;
+//				}
+//				s= p; q.link = r; q= q.link; p=r.link; r= s; 
+//			}					
+//			q.link = r; 
 		}
 	}
 }
@@ -162,7 +175,7 @@ public class 실습9_1정수연결리스트 {
 		int count = sc.nextInt(); //난수 생성 갯수
 
 		int data = 0;		
-		
+
 		do {
 			switch (menu = SelectMenu()) {//Menu 생성자 호출 - menu 객체를 리턴한다 
 			case Add: // 난수를 삽입하는데 올림차순으로 정렬되도록 구현
@@ -206,45 +219,45 @@ public class 실습9_1정수연결리스트 {
 				break;
 			}
 		} while (menu != Menu.Exit);
-		
-		
 
-		
-//		for (int o = 0 ;o < 10; o++) {
-//			
-//			
-//			System.out.print("추가할 난수 숫자 개수:: ");
-//			int count = sc.nextInt(); //난수 생성 갯수
-//	
-//			int data = 0;
-//			
-//			//add
-//			for (int i =0; i < count; i++) {
-//				data = rand.nextInt(20);
-//				l.Add(data);
-//			}
-//			//merge
-//			LinkedList1 l2 = new LinkedList1();
-//			for (int i =0; i < count; i++) {
-//				data = rand.nextInt(20);
-//				l2.Add(data);
-//			}
-//			System.out.println("리스트 l::");
-//			l.Show();
-//			System.out.println("리스트 l2::");
-//			l2.Show();
-//			l.Merge(l2);//merge 실행후 show로 결과 확인 - 새로운 노드를 만들지 않고 합병 - 난이도 상
-//			System.out.println("병합 리스트 l::");
-//			l.Show();
-//			
-//			
-//			
-//			System.out.println("\n");
-//			}
-//		
-		
-		
-		
-		
+
+
+
+		//		for (int o = 0 ;o < 10; o++) {
+		//			
+		//			
+		//			System.out.print("추가할 난수 숫자 개수:: ");
+		//			int count = sc.nextInt(); //난수 생성 갯수
+		//	
+		//			int data = 0;
+		//			
+		//			//add
+		//			for (int i =0; i < count; i++) {
+		//				data = rand.nextInt(20);
+		//				l.Add(data);
+		//			}
+		//			//merge
+		//			LinkedList1 l2 = new LinkedList1();
+		//			for (int i =0; i < count; i++) {
+		//				data = rand.nextInt(20);
+		//				l2.Add(data);
+		//			}
+		//			System.out.println("리스트 l::");
+		//			l.Show();
+		//			System.out.println("리스트 l2::");
+		//			l2.Show();
+		//			l.Merge(l2);//merge 실행후 show로 결과 확인 - 새로운 노드를 만들지 않고 합병 - 난이도 상
+		//			System.out.println("병합 리스트 l::");
+		//			l.Show();
+		//			
+		//			
+		//			
+		//			System.out.println("\n");
+		//			}
+		//		
+
+
+
+
 	}
 }
