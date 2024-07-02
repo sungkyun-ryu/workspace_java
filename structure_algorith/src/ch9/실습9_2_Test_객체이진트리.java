@@ -1,28 +1,65 @@
 package ch9;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Queue;
-import java.util.Random;
 import java.util.Scanner;
 
-class TreeNode5 {
-	TreeNode5 LeftChild;
-	int data;
-	TreeNode5 RightChild;
+class SimpleObject4 {
+	static final int NO = 1; // 번호를 읽어 들일까요?
+	static final int NAME = 2; // 이름을 읽어 들일까요?
 
-	public TreeNode5() {
-		LeftChild = RightChild = null;
+	private String no; // 회원번호
+	private String name; // 이름
+
+	// --- 문자열 표현을 반환 ---//
+	@Override
+	public String toString() {
+		return "(" + no + ") " + name;
+	}
+	public SimpleObject4() {
+		no = null;name = null;
+	}
+	public SimpleObject4(String no, String name) {
+		this.no = no;this.name = name;
+	}
+	// --- 데이터를 읽어 들임 ---//
+	void scanData(String guide, int sw) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println(guide + "할 데이터를 입력하세요."+ sw);
+
+		if ((sw & NO) == NO) { //& 는 bit 연산자임
+			System.out.print("번호: ");
+			no = sc.next();
+		}
+		if ((sw & NAME) == NAME) {
+			System.out.print("이름: ");
+			name = sc.next();
+		}
 	}
 
-	public TreeNode5(int x) {
-		LeftChild = RightChild =null; 
-		this.data= x;
+	// --- 회원번호로 순서를 매기는 comparator ---//
+	public static final Comparator<SimpleObject4> NO_ORDER = new NoOrderComparator();
+
+	private static class NoOrderComparator implements Comparator<SimpleObject4> {
+		@Override
+		public int compare(SimpleObject4 d1, SimpleObject4 d2) {
+			return (d1.no.compareTo(d2.no) > 0) ? 1 : (d1.no.compareTo(d2.no)<0) ? -1 : 0;
+		}
+	}
+
+	// --- 이름으로 순서를 매기는 comparator ---//
+	public static final Comparator<SimpleObject4> NAME_ORDER = new NameOrderComparator();
+
+	private static class NameOrderComparator implements Comparator<SimpleObject4> {
+		@Override
+		public int compare(SimpleObject4 d1, SimpleObject4 d2) {
+			return d1.name.compareTo(d2.name);
+		}
 	}
 }
 
-class ObjectStack5{
+class ObjectStack4{
 	//--- 실행시 예외: 스택이 비어있음 ---//
 	// generic class는 Throwable을 상속받을 수 없다 - 지원하지 않는다
 	public class EmptyGenericStackException extends Exception {
@@ -38,13 +75,13 @@ class ObjectStack5{
 		}
 	}
 
-	private List<TreeNode5> data;  // list를 사용: 배열은 크기를 2배로 늘리는 작업 필요 
+	private List<TreeNode4> data;  // list를 사용: 배열은 크기를 2배로 늘리는 작업 필요 
 	//private List<T> data;
 	private int capacity; // 스택의 크기
 	private int top; // 스택 포인터
 
 	//--- 생성자(constructor) ---//
-	public ObjectStack5(int capacity) {
+	public ObjectStack4(int capacity) {
 		top = 0;
 		this.capacity = capacity;
 		// this.data = new T[capacity]; // 스택 본체용 배열을 생성
@@ -56,7 +93,7 @@ class ObjectStack5{
 	}
 
 	//--- 스택에 x를 푸시 ---//
-	public boolean push(TreeNode5 x) throws OverflowGenericStackException {
+	public boolean push(TreeNode4 x) throws OverflowGenericStackException {
 		System.out.println("top = " + top +"capacity = " + capacity);
 		if (top >= capacity)
 			throw new OverflowGenericStackException();
@@ -66,14 +103,14 @@ class ObjectStack5{
 	}
 
 	//--- 스택에서 데이터를 팝(정상에 있는 데이터를 꺼냄) ---//
-	public TreeNode5 pop() throws EmptyGenericStackException  {
+	public TreeNode4 pop() throws EmptyGenericStackException  {
 		if (top < 0)
 			throw new EmptyGenericStackException();
 		return data.remove(--top);
 	}
 
 	//--- 스택에서 데이터를 피크(peek, 정상에 있는 데이터를 들여다봄) ---//
-	public TreeNode5 peek() throws EmptyGenericStackException  {
+	public TreeNode4 peek() throws EmptyGenericStackException  {
 		if (top <= 0)
 			throw new EmptyGenericStackException();
 		return data.get(top - 1);
@@ -85,7 +122,7 @@ class ObjectStack5{
 	}
 
 	//--- 스택에서 x를 찾아 인덱스(없으면 –1)를 반환 ---//
-	public int indexOf(TreeNode5 x) {
+	public int indexOf(TreeNode4 x) {
 		for (int i = top - 1; i >= 0; i--) // 꼭대기 쪽부터 선형 검색
 			if (data.get(i).equals(x))
 				return i; // 검색 성공
@@ -124,8 +161,8 @@ class ObjectStack5{
 	}
 }
 //정수를 저정하는 이진트리 만들기 실습
-class ObjectQueue5 {
-	private TreeNode5[] que;//큐는 배열로 구현
+class ObjectQueue4 {
+	private TreeNode4[] que;//큐는 배열로 구현
 	//private List<Integer> que; // 수정본
 	private int capacity; // 큐의 크기
 	private int front; // 맨 처음 요소 커서
@@ -147,18 +184,18 @@ class ObjectQueue5 {
 	}
 
 	//--- 생성자(constructor) ---//
-	public ObjectQueue5(int maxlen) {
+	public ObjectQueue4(int maxlen) {
 		num = front = rear = 0;
 		capacity = maxlen;
 		try {
-			que = new TreeNode5[maxlen];
+			que = new TreeNode4[maxlen];
 		} catch (OutOfMemoryError e) {        // 생성할 수 없음
 			capacity = 0;
 		}
 	}
 
 	//--- 큐에 데이터를 인큐 ---//
-	public int enque(TreeNode5 x) throws OverflowQueueException {
+	public int enque(TreeNode4 x) throws OverflowQueueException {
 		if (num >= capacity)
 			throw new OverflowQueueException("queue full"); // 큐가 가득 찼음
 		que[rear++] = x; 
@@ -168,17 +205,17 @@ class ObjectQueue5 {
 	}
 
 	//--- 큐에서 데이터를 디큐 ---//
-	public TreeNode5 deque() throws EmptyQueueException {
+	public TreeNode4 deque() throws EmptyQueueException {
 		if (num <= 0)
 			throw new EmptyQueueException("queue empty"); // 큐가 비어있음
-		TreeNode5 x = que[front++];
+		TreeNode4 x = que[front++];
 		num--;
 
 		return x;
 	}
 
 	//--- 큐에서 데이터를 피크(프런트 데이터를 들여다봄) ---//
-	public TreeNode5 peek() throws EmptyQueueException {
+	public TreeNode4 peek() throws EmptyQueueException {
 		if (num <= 0)
 			throw new EmptyQueueException("queue empty"); // 큐가 비어있음
 		return que[front];
@@ -190,7 +227,7 @@ class ObjectQueue5 {
 	}
 
 	//--- 큐에서 x를 검색하여 인덱스(찾지 못하면 –1)를 반환 ---//
-	public int indexOf(TreeNode5 x) {
+	public int indexOf(TreeNode4 x) {
 		for (int i = 0; i < num; i++) {
 			int idx = (i + front) % capacity;
 			if (que[idx].equals(x)) // 검색 성공
@@ -230,30 +267,65 @@ class ObjectQueue5 {
 		}
 	}
 }
-class Tree5 {
-	TreeNode5 root;
+//정수를 저정하는 이진트리 만들기 실습
+class TreeNode4 {
+	TreeNode4 LeftChild;
+	SimpleObject4 data;
+	TreeNode4 RightChild;
 
-	Tree5() {
+	public TreeNode4() {
+		LeftChild = RightChild = null;
+	}
+
+	TreeNode4(SimpleObject4 so) {
+		data = so;
+		LeftChild = RightChild = null;
+	}
+}
+
+class Tree4 {
+	TreeNode4 root;
+
+	Tree4() {
 		root = null;
 	}
 
-	TreeNode5 inorderSucc(TreeNode5 current) {
-		TreeNode5 temp = current.RightChild;
+	TreeNode4 inorderSucc(TreeNode4 current) {
+		//주어진 노드에 대한 inorder traversal 방문시에 다음에 방문할 노드(successor)를 찾는 알고리즘
+		TreeNode4 temp = current.RightChild;
 		if (current.RightChild != null)
-			while (temp.LeftChild != null)
+			while (temp.LeftChild != null) {
 				temp = temp.LeftChild;
-		System.out.println("inordersucc:: temp.data = " + temp.data);
+			}
 		return temp;
 	}
 
-	boolean isLeafNode(TreeNode5 current) {
+	TreeNode4 findParent(TreeNode4 current, Comparator<? super SimpleObject4> c) {
+		//주어진 노드의 parent node를 찾는 알고리즘
+		TreeNode4 p = root, temp = null;
+		while (p != null) {
+			if (c.compare(p.data, current.data) == 0) {
+				return temp;
+			} else if (c.compare(p.data, current.data) < 0) {
+				temp = p;
+				p = p.RightChild;
+			} else {
+				temp = p;
+				p = p.LeftChild;
+			}
+		}
+		return null;
+	}
+
+	boolean isLeafNode(TreeNode4 current) {
+		//주어진 노드가 leaf node인지 검사
 		if (current.LeftChild == null && current.RightChild == null)
 			return true;
 		else
 			return false;
 	}
 
-	void inorder() { //driver function; note that the different methods; one w/o parameter, the other w/ parameter
+	void inorder() {
 		inorder(root);
 	}
 
@@ -265,7 +337,7 @@ class Tree5 {
 		postorder(root);
 	}
 
-	void inorder(TreeNode5 CurrentNode) {// workhorse function
+	void inorder(TreeNode4 CurrentNode) {
 		if (CurrentNode != null) {
 			inorder(CurrentNode.LeftChild);
 			System.out.print(" " + CurrentNode.data);
@@ -273,7 +345,7 @@ class Tree5 {
 		}
 	}
 
-	void preorder(TreeNode5 CurrentNode) {
+	void preorder(TreeNode4 CurrentNode) {
 		if (CurrentNode != null) {
 			System.out.print(CurrentNode.data + " ");
 			preorder(CurrentNode.LeftChild);
@@ -281,7 +353,7 @@ class Tree5 {
 		}
 	}
 
-	void postorder(TreeNode5 CurrentNode) {
+	void postorder(TreeNode4 CurrentNode) {
 		if (CurrentNode != null) {
 			postorder(CurrentNode.LeftChild);
 			postorder(CurrentNode.RightChild);
@@ -289,11 +361,58 @@ class Tree5 {
 		}
 	}
 
-	void NonrecInorder()//void Tree5::inorder(TreeNode5 CurrentNode)와 비교
-	//stack을 사용한 inorder 출력
+	public boolean add(SimpleObject4 obj, Comparator<? super SimpleObject4> c) {
+		//inorder로 출력시에 정렬이 되도록 입력: binary search tree를 구현
+		// left subtree < x < right subtree
+		TreeNode4 p = root;
+		TreeNode4 q = null;
+		boolean tag = false;
+		if (p == null) p.data = obj; 
+		else {
+			while(p != null) {
+				if(c.compare(obj,p.data) < 0) {
+					q=p; p= p.LeftChild; tag= true;
+				} else {
+					q=p; p= p.RightChild; tag =false;
+				}
+			} if(tag == true) q.LeftChild = new TreeNode4(obj); 
+			else q.RightChild = new TreeNode4(obj);			
+		} return true;
+	}
+
+	public boolean delete(SimpleObject4 obj, Comparator<? super SimpleObject4> c) {
+		//주어진 객체 obj를 포함한 노드를 찾아 삭제하는 알고리즘
+		//난이도: 최상급 중에서 최상급
+		TreeNode4 p = root, q = null;
+
+
+	}
+
+	boolean search(SimpleObject4 obj, Comparator<? super SimpleObject4> c) {
+		//주어진 객체 obj를 갖는 노드를 찾는 문제
+		TreeNode4 p = root;
+		if (p == null) return false;
+		else {
+			while(p != null && c.compare(obj, p.data) == 0) {
+				if (c.compare(obj, p.data) < 0) p=p.LeftChild;
+				else p= p.RightChild;
+			}
+			if (p == null) return false; 
+			else return true;
+		}
+	}
+	void levelOrder() 
+	//root 부터 level별로 출력 : root는 level 1, level 2는 다음줄에 => 같은 level이면 같은 줄에 출력하게 한다 
 	{
-		ObjectStack5 s = new ObjectStack5(20);
-		TreeNode5 CurrentNode = root;
+		ObjectQueue4 q = new ObjectQueue4(20);
+		TreeNode4 CurrentNode = root;
+
+	}
+	void NonrecInorder()//void Tree::inorder(TreeNode4 *CurrentNode)와 비교
+	//stack을 이용하여 inorder traversal하는 알고리즘 구현
+	{
+		ObjectStack4 s = new ObjectStack4(20);
+		TreeNode4 CurrentNode = root;
 		while (true) {
 			while (CurrentNode != null) {
 				s.push(CurrentNode);
@@ -302,7 +421,7 @@ class Tree5 {
 			if (!s.isEmpty()) {
 				try {
 					CurrentNode = s.pop();
-				} catch (ch9.ObjectStack5.EmptyGenericStackException e) {
+				} catch (Chap9_Tree.ObjectStack4.EmptyGenericStackException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
@@ -312,121 +431,9 @@ class Tree5 {
 			else break;  
 		}
 	}
-	void levelOrder() //level 별로 출력한다. level이 증가하면 다음줄에 출력한다 
-	//난이도: 최상급 구현 
-	{
-		ObjectQueue5 q = new ObjectQueue5(20);
-		Queue<Integer> que = new LinkedList<>();
-		int oldLevel = 0,  newLevel=0;
-		que.add(oldLevel+1);
-		TreeNode5 CurrentNode = root;
-		newLevel = que.remove();
-
-	}
-
-	boolean insert(int x) {// binary search tree를 만드는 입력 : left subtree < 노드 x < right subtree
-		//inorder traversal시에 정렬된 결과가 나와야 한다
-		TreeNode5 p = root;
-		TreeNode5 q = null;
-		TreeNode5 newNode = new TreeNode5(x);
-		boolean tag = false;
-		if(p==null) {
-			root = newNode; q=p; return true;
-		}
-		else {
-			while(p != null) {
-				if(x < p.data) 
-				{tag = true; q=p; p=p.LeftChild; }
-				else 
-				{tag = false; q=p; p=p.RightChild; }
-			}
-			if(tag==true)
-				q.LeftChild = newNode; 
-			else 
-				q.RightChild= newNode; 	
-
-			return true;}
-	}
-
-	boolean delete(int num) {//binary search tree에서 임의 값을 갖는 노드를 찾아 삭제한다.
-		//삭제 대상이 leaf node인 경우, non-leaf node로 구분하여 구현한다 
-		TreeNode5 p = root, q = null, parent = null;
-		int branchMode = 0; // 1은 left, 2는 right
-		if (root == null)
-			return false;
-		else {
-			// me. 해당 숫자 찾기
-			while( p != null && p.data != num ) {
-				if (num < p.data) {q=p; p= p.LeftChild; branchMode = 1;}
-				else {q=p; p= p.RightChild; branchMode = 2;}
-			}
-			// me. 해당 숫자 못 찾았을 경우
-			if (p == null) return false;			
-			else { // 해당 숫자 찾았을 경우
-				// leaf node 인 경우
-				if (isLeafNode(p) == true) {
-					if (branchMode == 1) q.LeftChild = null;
-					else q.RightChild = null; 
-					return true;
-				}
-				//				if( p.data == num && p.LeftChild == null && p.RightChild == null) {
-				//					if (branchMode == 1) q.LeftChild = null;
-				//					else q.RightChild = null; 
-				//					return true;
-				//				}
-				
-				// leaf node 가 아닌 경우
-				else {
-					parent = p ;
-					TreeNode5 next = inorderSucc(parent); 
-					//p가 next 될때까지
-					while(next.data != p.data) {
-						if (next == parent) continue;
-						if(num < p.data) {q=p; p=p.LeftChild;}
-						else {q=p; p=p.RightChild;}
-					}
-					parent.data= p.data; q.RightChild = p.LeftChild;
-					return true;
-				}
-					
-//					if(p.LeftChild != null  && p.data == num) {
-//					parent = p;	q=p; p=p.LeftChild; 					
-//					if (p.RightChild != null ) {	
-//						q=p; p= p.RightChild;
-//						parent.data = p.data;
-//						if(p.RightChild != null) {
-//							q.RightChild = p.RightChild; 
-//							q.RightChild.LeftChild = p.LeftChild;
-//						}
-//						else q.RightChild = p.LeftChild;						
-//					} else {
-//						parent.data = p.data; 
-//						q.RightChild = p.LeftChild;
-//					}
-//					return true;				
-//				} else if(p.RightChild != null && p.data ==num) {
-//					parent = p; q=p; p= p.RightChild; 
-//					if(p.RightChild != null) parent.RightChild = p.RightChild;
-//					else parent.RightChild = p.LeftChild;
-//					return true;
-//				}
-			}
-		}
-//		return false;
-	}
-
-	boolean search(int num) {//num 값을 binary search tree에서 검색
-		TreeNode5 p = root;
-		while(p!= null && p.data != num) {
-			if (num < p.data) p = p.LeftChild; 
-			else p= p.RightChild;			
-		} 
-		if (p == null) return false; 
-		else return true;		
-	}
 }
 
-public class 실습9_1_Test_정수이진트리 {
+public class 실습9_2_Test_객체이진트리 {
 	enum Menu {
 		Add("삽입"), Delete("삭제"), Search("검색"), InorderPrint("정렬출력"), 
 		LevelorderPrint("레벨별출력"), StackInorderPrint("스택정렬출력"), 
@@ -465,48 +472,41 @@ public class 실습9_1_Test_정수이진트리 {
 	}
 
 	public static void main(String[] args) {
-		Random rand = new Random();
-		Scanner stdIn = new Scanner(System.in);
-		Tree5 t = new Tree5();
+		Scanner sc2 = new Scanner(System.in);
+		Tree4 t = new Tree4();
 		Menu menu; // 메뉴
-		int count = 20;
+		String sno1, sname1;
+		SimpleObject4 so;
+		int count = 0;
 		int num;
 		boolean result;
 		do {
 			switch (menu = SelectMenu()) {
 			case Add: // 
-				int[] input = new int[count];
-				for (int ix = 0; ix < count; ix++) {
-					input[ix] = rand.nextInt(50);
-				}
-				for (int n: input)
-					System.out.print(n + " ");
-				for (int i = 0; i < count; i++) {
-					if (!t.insert(input[i]))
-						System.out.println("Insert Duplicated data");
-				}
-				System.out.println("");
+				SimpleObject4[] sox = { new SimpleObject4("33", "ee"), 
+						new SimpleObject4("55", "tt"),
+						new SimpleObject4("22", "ww"), 
+						new SimpleObject4("66", "yy"), 
+						new SimpleObject4("21", "wq") };
+				for (SimpleObject4 soz : sox)
+					t.add(soz, SimpleObject4.NO_ORDER);
 				break;
 
 			case Delete: //임의 정수 삭제
-				System.out.println("삭제할 데이터:: ");
-				num = stdIn.nextInt();
-				if (t.delete(num))
-					System.out.println("삭제 데이터 = " + num + " 성공");
-				else
-					System.out.println("삭제 실패");
-				;
+				so = new SimpleObject4();
+				so.scanData("삭제", SimpleObject4.NO);
+				t.delete(so, SimpleObject4.NO_ORDER);
+
 				break;
 
 			case Search: // 노드 검색
-				System.out.println("검색할 데이터:: ");
-
-				num = stdIn.nextInt();
-				result = t.search(num);
-				if (result)
-					System.out.println(" 데이터 = " + num + "존재합니다.");
+				so = new SimpleObject4();
+				so.scanData("검색", SimpleObject4.NO);
+				result = t.search(so, SimpleObject4.NO_ORDER);
+				if (!result)
+					System.out.println("검색 값 = " + so + "데이터가 없습니다.");
 				else
-					System.out.println("해당 데이터가 없습니다.");
+					System.out.println("검색 값 = " + so + "데이터가 존재합니다.");
 				break;
 
 			case InorderPrint: // 전체 노드를 키값의 오름차순으로 표시
@@ -514,7 +514,7 @@ public class 실습9_1_Test_정수이진트리 {
 				System.out.println();
 				//t.NonrecInorder();
 				break;
-			case LevelorderPrint: // 
+			case LevelorderPrint: // 전체 노드를 키값의 오름차순으로 표시
 				t.levelOrder();
 				System.out.println();
 				//t.NonrecInorder();

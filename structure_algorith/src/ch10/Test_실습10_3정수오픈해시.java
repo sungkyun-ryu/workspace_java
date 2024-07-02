@@ -1,11 +1,11 @@
-package Chap10_Hashing;
+package ch10;
 
 //오픈 주소법에 의한 해시의 사용 예
 
 import java.util.Scanner;
 
 //오픈 주소법에 의한 해시
-/*
+
 class OpenHash2 {
 
 //--- 버킷의 상태 ---//
@@ -62,8 +62,8 @@ public void dump() {
     
 }
 }
-*/
-public class 실습10_3정수오픈해시 {
+
+public class Test_실습10_3정수오픈해시 {
 //--- 메뉴 열거형 ---//
 enum Menu {
    ADD(      "추가"),

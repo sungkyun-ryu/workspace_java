@@ -1,9 +1,9 @@
-package Chap10_Hashing;
+package ch10;
 
 import java.util.Scanner;
 //체인법에 의한 해시
 //--- 해시를 구성하는 노드 ---//
-/*
+
 class Node {
     int key;                 // 키값
     Node next;        // 뒤쪽 포인터(뒤쪽 노드에 대한 참조)
@@ -14,7 +14,9 @@ class SimpleChainHash {
  private int    size;              // 해시 테이블의 크기
  private Node[] table;        // 해시 테이블
 
- 
+ public int hashValue(int key) {
+	 return (key* key* 31) % size; 
+ }
 
  //--- 키값이 key인 요소를 검색(데이터를 반환) ---//
  public int search(int key) {
@@ -36,7 +38,7 @@ class SimpleChainHash {
 
  }
 }
-*/
+
 public class Test_실습10_1정수체인해시 {
 
 	enum Menu {

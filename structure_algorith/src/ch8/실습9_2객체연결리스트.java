@@ -69,8 +69,8 @@ class LinkedList2 {
 	public LinkedList2() {
 		first = null;
 	}
-
-	public int Delete(SimpleObject5 element, Comparator<SimpleObject5> cc)
+	////Delete DONE
+	public int Delete(SimpleObject5 element, Comparator<SimpleObject5> cc) 
 	//전달된 element를 찾을 때 comparator 객체를 사용한다 
 	{
 		Node2 q, current = first;
@@ -84,6 +84,7 @@ class LinkedList2 {
 			return 1; 
 		}  return -1;// 삭제할 대상이 없다.
 	}
+	//////////////// Show DONE
 	public void Show() { // 전체 리스트를 순서대로 출력한다.
 		Node2 p = first;
 		SimpleObject5 so;
@@ -94,6 +95,7 @@ class LinkedList2 {
 		} System.out.println();
 	}
 	
+	////////////////Add DONE
 	public void Add(SimpleObject5 element, Comparator<SimpleObject5> cc) 
 	//임의 값을 삽입할 때 리스트가 오름차순으로 정렬이 되도록 한다
 	{
@@ -118,6 +120,7 @@ class LinkedList2 {
 			} if(p==null) q.link = newNode;
 		}
 	}
+	
 	public boolean Search(SimpleObject5 element, Comparator<SimpleObject5> cc) { 
 		// 전체 리스트를 올림차순 순서대로 출력한다.
 		Node2 q, current = first;
